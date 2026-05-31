@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from './cart.service';
 import { SupabaseService } from './supabase.service';
+import { ToastService } from './toast.service';
 
 
 @Component({
@@ -94,19 +95,20 @@ import { SupabaseService } from './supabase.service';
 export class CartDrawerComponent {
   cart = inject(CartService);
   private supabaseService = inject(SupabaseService);
+  private toastService = inject(ToastService);
 
   async onCheckout() {
     const user = this.supabaseService.getCurrentUser();
     if (!user) {
-      alert('Por favor, cadastre-se ou faça login para finalizar a compra!');
+      this.toastService.show('Crie uma conta ou faça login para finalizar a compra!', 'error');
       return;
     }
 
     const { error } = await this.cart.checkout(this.supabaseService);
     if (error) {
-      alert('Erro ao finalizar compra: ' + error.message);
+      this.toastService.show('Erro ao finalizar compra: ' + error.message, 'error');
     } else {
-      alert('Compra finalizada com sucesso! Seus dados foram salvos no Supabase.');
+      this.toastService.show('Compra finalizada com sucesso! Obrigado pela preferência. ❤️', 'success');
     }
   }
 }

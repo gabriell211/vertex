@@ -16,7 +16,7 @@ const angularApp = new AngularNodeAppEngine();
 app.use((req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' ws: wss: https://api.mercadolibre.com; frame-src 'self';"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https: http:; connect-src 'self' ws: wss: https://api.mercadolibre.com https://*.supabase.co wss://*.supabase.co https://grymkuvfdsgptrjjqyre.supabase.co; frame-src 'self';"
   );
   next();
 });

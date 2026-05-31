@@ -9,6 +9,7 @@ import { CartDrawerComponent } from './cart-drawer.component';
 import { CartService } from './cart.service';
 import { SearchService } from './search.service';
 import { RegisterModalComponent } from './register-modal.component';
+import { ToastService } from './toast.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +30,7 @@ import { RegisterModalComponent } from './register-modal.component';
                 <path d="M 100 65 L 165 30 L 105 165 L 115 130 Z" fill="#a0a0a0" />
               </svg>
             </div>
-            <span class="font-display font-bold tracking-[0.2em] uppercase text-white">Vertex</span>
+            <span class="font-display font-bold tracking-[0.2em] uppercase text-white cursor-pointer" (click)="scrollTo($event, 'hero')">Vertex</span>
           </div>
 
           <!-- Mobile Cart & Register (hidden on md) -->
@@ -56,8 +57,10 @@ import { RegisterModalComponent } from './register-modal.component';
         </div>
         
         <nav class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-widest uppercase text-gray-400">
-           <a href="#" class="text-white hover:text-[#8b26ff] transition-colors">Início</a>
-           <a href="#" class="hover:text-white transition-colors">Scripts</a>
+           <a href="#hero" (click)="scrollTo($event, 'hero')" class="text-white hover:text-[#8b26ff] transition-colors cursor-pointer">Início</a>
+           <a href="#scripts" (click)="scrollTo($event, 'scripts')" class="hover:text-white transition-colors cursor-pointer">Scripts</a>
+           <a href="#avaliacoes" (click)="scrollTo($event, 'avaliacoes')" class="hover:text-white transition-colors cursor-pointer">Avaliações</a>
+           <a href="https://discord.gg/E576rRV7Wy" target="_blank" rel="noopener noreferrer" class="hover:text-[#5865F2] transition-colors cursor-pointer">Discord</a>
         </nav>
 
         <div class="hidden md:flex items-center gap-4">
@@ -76,9 +79,9 @@ import { RegisterModalComponent } from './register-modal.component';
 
     <!-- Main Content -->
     <main class="min-h-screen pt-32 md:pt-20">
-      <app-hero></app-hero>
-      <app-products></app-products>
-      <app-feedback></app-feedback>
+      <div id="hero"><app-hero></app-hero></div>
+      <div id="scripts"><app-products></app-products></div>
+      <div id="avaliacoes"><app-feedback></app-feedback></div>
     </main>
 
     <!-- Minimal Footer -->
@@ -91,21 +94,39 @@ import { RegisterModalComponent } from './register-modal.component';
               <path d="M 100 65 L 165 30 L 105 165 L 115 130 Z" fill="#a0a0a0" />
             </svg>
           </div>
-          <span class="font-display text-xs tracking-widest uppercase text-white">© 2024 Vertex Studios</span>
+          <span class="font-display text-xs tracking-widest uppercase text-white">© 2025 Vertex Studios</span>
         </div>
         <div class="flex items-center text-xs tracking-widest uppercase font-mono text-gray-500 gap-6">
            <a href="#" class="hover:text-[#ab60ff] transition-colors">Termos</a>
            <a href="#" class="hover:text-[#ab60ff] transition-colors">Privacidade</a>
+           <a href="https://discord.gg/E576rRV7Wy" target="_blank" rel="noopener noreferrer" class="hover:text-[#5865F2] transition-colors">Discord</a>
         </div>
       </div>
     </footer>
     
     <app-cart-drawer></app-cart-drawer>
     <app-register-modal #registerModal></app-register-modal>
+
+    <!-- Toast Notification -->
+    @if (toast()) {
+      <div class="fixed bottom-6 right-6 z-[200] flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl border transition-all duration-300"
+           [class]="toast()!.type === 'success' ? 'bg-[#0d0617] border-[#8b26ff]/40 text-white' : 'bg-[#1a0620] border-red-500/40 text-white'">
+        <mat-icon [class]="toast()!.type === 'success' ? 'text-[#8b26ff]' : 'text-red-400'">{{ toast()!.type === 'success' ? 'check_circle' : 'error' }}</mat-icon>
+        <span class="font-sans text-sm">{{ toast()!.message }}</span>
+      </div>
+    }
   `
 })
 export class App {
   cart = inject(CartService);
   searchService = inject(SearchService);
-}
+  toast = inject(ToastService).toast;
 
+  scrollTo(event: Event, id: string) {
+    event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}

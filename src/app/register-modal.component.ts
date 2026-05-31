@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SupabaseService } from './supabase.service';
+import { ToastService } from './toast.service';
 
 @Component({
   selector: 'app-register-modal',
@@ -123,6 +124,7 @@ export class RegisterModalComponent {
   authForm!: FormGroup;
   private supabaseService = inject(SupabaseService);
   private fb = inject(FormBuilder);
+  private toastService = inject(ToastService);
 
   constructor() {
     this.initForm();
@@ -169,9 +171,9 @@ export class RegisterModalComponent {
         const response = await this.supabaseService.signIn(email, password);
         this.isLoading.set(false);
         if (response.error) {
-          alert('Erro ao entrar: ' + response.error.message);
+          this.toastService.show('Erro ao entrar: ' + response.error.message, 'error');
         } else {
-          alert('Login efetuado com sucesso!');
+          this.toastService.show('Login efetuado com sucesso! Bem-vindo de volta.', 'success');
           this.close();
         }
       } else {
@@ -179,9 +181,9 @@ export class RegisterModalComponent {
         const response = await this.supabaseService.signUpWithPassword(email, password, name);
         this.isLoading.set(false);
         if (response.error) {
-          alert('Erro ao registrar: ' + response.error.message);
+          this.toastService.show('Erro ao registrar: ' + response.error.message, 'error');
         } else {
-          alert('Cadastro realizado com sucesso! Verifique seu email caso necessário.');
+          this.toastService.show('Conta criada com sucesso! Verifique seu e-mail para confirmar.', 'success');
           this.close();
         }
       }
