@@ -60,12 +60,13 @@ import { animate, stagger } from 'motion';
 
         <!-- Subtitle w/ Discord -->
         <div #subtitle class="mt-12 flex flex-col md:flex-row flex-wrap items-center justify-center gap-4 opacity-0 transform translate-y-8">
-          <a href="https://discord.gg/vertex" target="_blank" rel="noopener noreferrer" class="group relative flex items-center gap-3 bg-[#5865F2]/10 hover:bg-[#5865F2]/20 border border-[#5865F2]/30 px-6 py-3 rounded-full transition-all duration-300 backdrop-blur-sm shadow-[0_0_20px_rgba(88,101,242,0.15)] hover:shadow-[0_0_30px_rgba(88,101,242,0.3)]">
+          <a href="https://discord.gg/E576rRV7Wy" target="_blank" rel="noopener noreferrer" class="group relative flex items-center gap-3 bg-[#5865F2]/10 hover:bg-[#5865F2]/20 border border-[#5865F2]/30 px-6 py-3 rounded-full transition-all duration-300 backdrop-blur-sm shadow-[0_0_20px_rgba(88,101,242,0.15)] hover:shadow-[0_0_30px_rgba(88,101,242,0.3)]">
             <mat-icon class="text-[#5865F2] group-hover:scale-110 transition-transform">discord</mat-icon>
             <span class="font-sans font-medium text-sm md:text-base tracking-[0.2em] text-white uppercase group-hover:text-blue-100 transition-colors">
               Discord
             </span>
           </a>
+
 
           <span class="font-display text-base md:text-xl tracking-[0.2em] uppercase text-gray-400">
             Sua loja de scripts <span class="text-[#8b26ff] font-bold">FiveM</span>

@@ -59,7 +59,7 @@ import { RegisterModalComponent } from './register-modal.component';
            <a href="#" class="text-white hover:text-[#8b26ff] transition-colors">Início</a>
            <a href="#" class="hover:text-white transition-colors">Scripts</a>
            <a href="#" class="hover:text-white transition-colors">Avaliações</a>
-           <a href="#" class="hover:text-white transition-colors">Discord</a>
+           <a href="https://discord.gg/E576rRV7Wy" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Discord</a>
         </nav>
 
         <div class="hidden md:flex items-center gap-4">
